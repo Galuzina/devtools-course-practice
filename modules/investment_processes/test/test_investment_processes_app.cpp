@@ -35,41 +35,6 @@ class InvestmentProcessesAppTest : public ::testing::Test {
     std::string output_;
 };
 
-TEST_F(InvestmentProcessesAppTest, Do_Print_Help_Without_Arguments) {
-    std::vector<std::string> args = {};
-
-    Act(args);
-
-    Assert("This is a Investment Processes application\\..*");
-}
-
-TEST_F(InvestmentProcessesAppTest, Is_Checking_Number_Of_Arguments) {
-    std::vector<std::string> args = {"5.2", "1"};
-
-    Act(args);
-
-    Assert("This is a Investment Processes application\\..*");
-}
-
-TEST_F(InvestmentProcessesAppTest, Can_InvestmentProcesses) {
-    std::vector<std::string> args = {"5.2", "3", "10"};
-
-    Act(args);
-
-    double month_interest = 10.0 / (100 * 12);
-    double net_income = 5.2 * month_interest /
-        (1 - pow(1 + month_interest, - 3));
-    double payback_period = net_income * 3;
-    double rate_of_return = payback_period - 5.2;
-
-    std::ostringstream stream;
-    stream << "Monthly payment : " << net_income <<
-        "\nOverpayment amount : " << payback_period <<
-        "\nTotal payout : " << rate_of_return;
-
-    Assert(stream.str());
-}
-
 TEST_F(InvestmentProcessesAppTest, Throw_Exception_When_Amount_Is_Invalid) {
     std::vector<std::string> args = {"0", "3", "10"};
 
